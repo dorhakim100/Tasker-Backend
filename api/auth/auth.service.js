@@ -18,7 +18,6 @@ async function login(username) {
   logger.debug(`auth.service - login with username: ${username}`)
 
   const user = await userService.getByUsername(username)
-  console.log('auth service:', user)
   if (!user) return Promise.reject('Invalid username or password')
 
   // TODO: un-comment for real login
@@ -61,7 +60,6 @@ async function signup({
 }
 
 function getLoginToken(user) {
-  console.log('authService:token', user)
   const userInfo = {
     id: user.id,
     fullname: user.fullname,

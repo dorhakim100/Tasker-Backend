@@ -68,9 +68,12 @@ async function remove(userId) {
 async function update(userToUpdate) {
   try {
     const idx = users.findIndex((user) => user.id === userToUpdate.id)
-    users.splice(idx, 1, userToUpdate)
-
-    return _saveUsersToFile()
+    const user = users.find((user) => user.id === userToUpdate.id)
+    console.log('service:', user)
+    const savedUser = { ...user, tasksIds: userToUpdate.tasksIds }
+    users.splice(idx, 1, savedUser)
+    _saveUsersToFile()
+    return savedUser
   } catch (err) {
     logger.error(`cannot update user ${userToUpdate.id}`, err)
     throw err

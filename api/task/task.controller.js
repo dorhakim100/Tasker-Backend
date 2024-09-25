@@ -25,7 +25,6 @@ export async function getTasks(req, res) {
       priority,
       loggedinUser: user || {},
     }
-    console.log('controller:', user)
     const tasks = await taskService.query(filterBy)
     res.json(tasks)
   } catch (err) {

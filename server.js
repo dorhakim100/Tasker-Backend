@@ -57,3 +57,36 @@ const port = process.env.PORT || 3030
 server.listen(port, () => {
   logger.info('Server is running on port: ' + port)
 })
+
+// data handling
+
+// import { makeId, readJsonFile, writeJsonFile } from './services/util.service.js'
+
+// writeUsers()
+
+// function writeUsers() {
+//   let tasks = readJsonFile('data/tasks.json')
+//   console.log(tasks)
+//   const formatedUsers = []
+
+//   tasks.forEach((task) => {
+//     const existingUser = formatedUsers.find(
+//       (user) => user.fullname === task.taskOwner
+//     )
+
+//     if (existingUser) {
+//       existingUser.tasksIds.push(task.id)
+//     } else {
+//       formatedUsers.push({
+//         fullname: task.taskOwner,
+//         id: makeId(),
+//         tasksIds: [task.id],
+//         password: '12345',
+//         username: task.taskOwner,
+//       })
+//     }
+//   })
+
+//   console.log(formatedUsers)
+//   writeJsonFile('data/users.json', formatedUsers)
+// }

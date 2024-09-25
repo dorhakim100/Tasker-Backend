@@ -116,7 +116,6 @@ export function readJsonFile(path) {
 }
 
 export function writeJsonFile(path, data) {
-  console.log(data)
   return new Promise((resolve, reject) => {
     const jsonData = JSON.stringify(data, null, 2)
 

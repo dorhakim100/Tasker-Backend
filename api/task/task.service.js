@@ -18,7 +18,6 @@ export const taskService = {
   update,
 }
 let tasks = readJsonFile('./data/tasks.json')
-// console.log(tasks)
 let users = readJsonFile('./data/users.json')
 
 async function query(filterBy = { txt: '' }) {
@@ -31,7 +30,6 @@ async function query(filterBy = { txt: '' }) {
     if (loggedinUser) {
       userToFind = users.find((user) => user.id === loggedinUser.id)
     }
-    console.log(userToFind)
     if (userToFind) {
       const regex = new RegExp(userToFind.fullname, 'i')
       // tasks = tasks.filter((task) => regex.test(task.taskOwner))
@@ -40,13 +38,12 @@ async function query(filterBy = { txt: '' }) {
         const taskToReturn = tasks.find((task) => task.id === id + '')
         return taskToReturn
       })
-      // console.log(sortedTasks)
     } else {
       return tasks.slice(0, 10)
     }
     if (txt) {
       const regex = new RegExp(filterBy.txt, 'i')
-      sortedTasks = tasks.filter(
+      sortedTasks = sortedTasks.filter(
         (task) => regex.test(task.title) || regex.test(task.description)
       )
     }
@@ -73,9 +70,8 @@ async function query(filterBy = { txt: '' }) {
 
 async function getById(taskId) {
   try {
-    console.log(taskId)
     const task = tasks.find((task) => task.id === taskId)
-    console.log(task)
+
     return Promise.resolve(task)
   } catch (err) {
     logger.error(`while finding task ${taskId}`, err)
@@ -124,7 +120,6 @@ async function add(task) {
     if (!loggedinUser) {
       throw new Error('User not logged in')
     }
-    console.log(loggedinUser)
     const taskToSave = {
       id: makeId(),
       title: task.title,
@@ -145,13 +140,12 @@ async function add(task) {
     const idx = users.findIndex((user) => user.id === loggedinUser.id)
     const userToUpdate = users.find((user) => user.id === loggedinUser.id)
     userToUpdate.tasksIds.unshift(taskToSave.id)
-    console.log('update:', userToUpdate)
+
     const userToSave = {
       ...userToUpdate,
       tasksIds: userToUpdate.tasksIds,
       id: loggedinUser.id,
     }
-    console.log('userToSave:', userToSave)
     users.splice(idx, 1, userToSave)
     _saveUsersToFile()
 
@@ -167,10 +161,12 @@ async function update(task) {
 
   try {
     const idx = tasks.findIndex((task) => task.id === taskToSave.id)
-    tasks.splice(idx, 1, taskToSave)
-    _saveTasksToFile
+    if (idx === -1) throw new Error(`Task with id ${taskToSave.id} not found`)
 
-    return task
+    tasks.splice(idx, 1, { ...taskToSave })
+    _saveTasksToFile()
+
+    return taskToSave
   } catch (err) {
     logger.error(`cannot update task ${task._id}`, err)
     throw err
