@@ -1,5 +1,15 @@
 [
   {
+    "id": "445ie",
+    "username": "newuser",
+    "fullname": "New user",
+    "imgUrl": "https://res.cloudinary.com/vanilla-test-images/image/upload/v1727279353/xbbeo4iyx9tsbzu2mxck.webp",
+    "tasksIds": [
+      "fdByz",
+      "I2zQ2"
+    ]
+  },
+  {
     "fullname": "Sandra Perry",
     "id": "eAlCF",
     "tasksIds": [
@@ -34,10 +44,10 @@
     "fullname": "Dor Hakim",
     "id": "VfM0Q",
     "tasksIds": [
+      "6",
       "5",
       "2",
       "3",
-      "6",
       "7",
       "8",
       "9",
